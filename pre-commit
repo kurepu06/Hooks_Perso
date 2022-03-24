@@ -14,7 +14,6 @@ EXIT_STATUS=0
 
 # Check that all changed *.ini files are encrypted
 # read: -r do not allow backslashes to escape characters; -d delimiter
-echo "Test"
 while IFS= read -r -d $'\0' file; do
 	[[ "$file" != *inventory/*.ini ]] && continue
 	# cut gets symbols 1-2
@@ -31,7 +30,7 @@ while IFS= read -r -d $'\0' file; do
 	[[ "$file_status_index" = 'D' ]] && continue
 	head -1 "$file" | grep --quiet '^\$ANSIBLE_VAULT;' || {
     vaultPath=${file%*inventory*}
-    echo "$vaultPath"
+    #echo "$vaultPath"
     if [[ -f "$vaultPath/vault_pass.txt" ]]
     then
         echo "ERROR: non-encrypted *.ini file: $file"
